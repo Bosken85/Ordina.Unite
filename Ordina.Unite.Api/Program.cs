@@ -1,9 +1,10 @@
-﻿using Microsoft.ServiceFabric.Services.Runtime;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using Api;
+using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace Api
+namespace Ordina.Unite.Api
 {
     internal static class Program
     {
@@ -20,9 +21,9 @@ namespace Api
                 // an instance of the class is created in this host process.
 
                 ServiceRuntime.RegisterServiceAsync("Ordina.Unite.ApiType",
-                    context => new Api(context)).GetAwaiter().GetResult();
+                    context => new Ordina.Unite.Api.Api(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Api).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Ordina.Unite.Api.Api).Name);
 
                 // Prevents this host process from terminating so services keeps running. 
                 Thread.Sleep(Timeout.Infinite);

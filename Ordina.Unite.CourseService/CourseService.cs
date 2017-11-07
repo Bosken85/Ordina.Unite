@@ -23,6 +23,15 @@ namespace Ordina.Unite.Course.Service
             : base(context)
         { }
 
+        protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
+        {
+            return new[]
+            {
+                //Extension methode to register this service as a remoting listener service
+                new ServiceReplicaListener(ctx => this.CreateServiceRemotingListener(ctx))
+            };
+        }
+
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
             _courseRepository = new CourseRepository(this.StateManager, cancellationToken);
@@ -37,15 +46,6 @@ namespace Ordina.Unite.Course.Service
                 End = new DateTime(2017, 11, 06, 18, 00, 00, DateTimeKind.Utc)
             };
             await _courseRepository.Add(serviceFabricCourse);
-        }
-
-        protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
-        {
-            return new[]
-            {
-                //Extension methode to register this service as a remoting listener service
-                new ServiceReplicaListener(ctx => this.CreateServiceRemotingListener(ctx)) 
-            };
         }
 
         public async Task<IEnumerable<Domain.Course>> GetAll()
