@@ -63,6 +63,11 @@ namespace Ordina.Unite.Course.Service
             return await _courseRepository.Add(course);
         }
 
+        public async Task<Domain.Course> Update(Guid id, Domain.Course course)
+        {
+            return await _courseRepository.Update(id, course);
+        }
+
         public async Task Remove(Guid id)
         {
             await _courseRepository.Remove(id);

@@ -103,7 +103,7 @@ namespace Ordina.Unite.Api.Controllers
                     End = apiCourse.End,
                     AvailableSeats = apiCourse.AvailableSeats
                 };
-                await _courseService.Add(course);
+                await _courseService.Update(id, course);
                 return Ok(apiCourse);
             }
             catch (Exception)
